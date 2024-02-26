@@ -24,6 +24,9 @@ dependencies {
     testImplementation('io.rest-assured:rest-assured:5.4.0') {
         exclude(group: 'org.codehaus.groovy', module: 'groovy')
     }
+    implementation 'com.google.guava:guava:32.1.1-jre'
+
+
 
 
 }
