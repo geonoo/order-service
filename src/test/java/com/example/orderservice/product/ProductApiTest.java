@@ -1,16 +1,36 @@
 package com.example.orderservice.product;
 
+import com.example.orderservice.ApiTest;
+import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
-@SpringBootTest
-public class ProductApiTest {
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+public class ProductApiTest extends ApiTest {
 
     @Test
     void 상품등록() {
-        final AddProductRequest request = 상품등록_요청();
-        
+        final var request = 상품등록_요청();
+
+        final var response = 상품요청(request);
+
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+    }
+
+    private static ExtractableResponse<Response> 상품요청(AddProductRequest request) {
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(request)
+                .when()
+                .post("/products")
+                .then()
+                .log().all().extract();
     }
 
     private static AddProductRequest 상품등록_요청() {
