@@ -1,12 +1,22 @@
 package com.example.orderservice.product;
 
+
+
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "products")
 class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private final String name;
-    private final int price;
-    private final DisCountPolicy disCountPolicy;
+    private String name;
+    private int price;
+    private DisCountPolicy disCountPolicy;
 
 
     public Product(String name, int price, DisCountPolicy disCountPolicy) {
@@ -16,13 +26,5 @@ class Product {
         this.name = name;
         this.price = price;
         this.disCountPolicy = disCountPolicy;
-    }
-
-    public void assignId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }

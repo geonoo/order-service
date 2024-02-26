@@ -20,11 +20,11 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    dependencies {
-        testImplementation('io.rest-assured:rest-assured:5.4.0') {
-            exclude(group: 'org.codehaus.groovy', module: 'groovy')
-        }
+    implementation 'org.projectlombok:lombok'
+    testImplementation('io.rest-assured:rest-assured:5.4.0') {
+        exclude(group: 'org.codehaus.groovy', module: 'groovy')
     }
+
 
 }
 
