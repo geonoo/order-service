@@ -23,4 +23,29 @@ public class ProductSteps {
         final AddProductRequest request = new AddProductRequest(name, price, disCountPolicy.NONE);
         return request;
     }
+
+    final
+
+    public static ExtractableResponse<Response> 상품조회_요청(Long productId) {
+        return RestAssured.given().log().all()
+                .when()
+                .get("/products/{productId}" , productId)
+                .then()
+                .log().all()
+                .extract();
+    }
+
+    public static UpdateProductRequest 상품수정_요청_생성() {
+        return new UpdateProductRequest("상품 수정", 2000, DisCountPolicy.NONE);
+    }
+
+    public static ExtractableResponse<Response> 상품수정_요청(final Long productId) {
+        return RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(상품수정_요청_생성())
+                .when()
+                .patch("/products/{productId}", productId)
+                .then().log().all()
+                .extract();
+    }
 }
