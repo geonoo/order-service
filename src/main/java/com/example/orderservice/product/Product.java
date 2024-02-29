@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "products")
 class Product {
     @Id
@@ -18,7 +18,6 @@ class Product {
     private int price;
     private DisCountPolicy disCountPolicy;
 
-
     public Product(String name, int price, DisCountPolicy disCountPolicy) {
         Assert.hasText(name, "상품명은 필수입니다.");
         Assert.isTrue(price > 0, "가격은 0 보다 커야합니다.");
@@ -26,5 +25,25 @@ class Product {
         this.name = name;
         this.price = price;
         this.disCountPolicy = disCountPolicy;
+    }
+
+    public Product() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public DisCountPolicy getDisCountPolicy() {
+        return disCountPolicy;
     }
 }

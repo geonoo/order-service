@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import static com.example.orderservice.product.ProductSteps.상품등록_요청;
+import static com.example.orderservice.product.ProductSteps.상품요청;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ProductApiTest extends ApiTest {
@@ -22,23 +24,19 @@ public class ProductApiTest extends ApiTest {
 
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
+    
+    @Test
+    public void 상품조회(){
+        ProductSteps.상품요청(ProductSteps.상품등록_요청());
+        final Long productId = 1L;
 
-    private static ExtractableResponse<Response> 상품요청(AddProductRequest request) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(request)
+        final ExtractableResponse<Response> response = RestAssured.given().log().all()
                 .when()
-                .post("/products")
+                .get("/products/{productId}" , productId)
                 .then()
-                .log().all().extract();
-    }
+                .log().all()
+                .extract();
 
-    private static AddProductRequest 상품등록_요청() {
-        final String name = "상품명";
-        final int price = 1000;
-        final DisCountPolicy disCountPolicy = DisCountPolicy.NONE;
-        final AddProductRequest request = new AddProductRequest(name, price, disCountPolicy.NONE);
-        return request;
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
-
 }
