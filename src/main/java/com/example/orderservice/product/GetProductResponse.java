@@ -2,7 +2,7 @@ package com.example.orderservice.product;
 
 import org.springframework.util.Assert;
 
-record GetProductResponse(Long id, String name, int price, DisCountPolicy disCountPolicy) {
+record GetProductResponse(Long id, String name, int price, DiscountPolicy disCountPolicy) {
     public GetProductResponse {
         Assert.notNull(id, "상품 ID는 필수입니다.");
         Assert.hasText(name, "상품명은 필수입니다.");

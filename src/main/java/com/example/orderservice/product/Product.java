@@ -3,41 +3,49 @@ package com.example.orderservice.product;
 
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 @Entity
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "products")
-class Product {
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int price;
-    private DisCountPolicy disCountPolicy;
+    private DiscountPolicy discountPolicy;
 
-    public Product(String name, int price, DisCountPolicy disCountPolicy) {
+    public Product(final String name, final int price, final DiscountPolicy discountPolicy) {
         Assert.hasText(name, "상품명은 필수입니다.");
-        Assert.isTrue(price > 0, "가격은 0 보다 커야합니다.");
-        Assert.notNull(disCountPolicy, "할인 정책은 필수 입니다.");
+        Assert.isTrue(price > 0, "상품 가격은 0보다 커야 합니다.");
+        Assert.notNull(discountPolicy, "할인 정책은 필수입니다.");
         this.name = name;
         this.price = price;
-        this.disCountPolicy = disCountPolicy;
+        this.discountPolicy = discountPolicy;
     }
 
     public Product() {
 
     }
 
-    public void update(final String name, final int price, final DisCountPolicy discountPolicy) {
+    public void update(final String name, final int price, final DiscountPolicy discountPolicy) {
         Assert.hasText(name, "상품명은 필수입니다.");
         Assert.isTrue(price > 0, "상품 가격은 0보다 커야 합니다.");
         Assert.notNull(discountPolicy, "할인 정책은 필수입니다.");
         this.name = name;
         this.price = price;
-        this.disCountPolicy = discountPolicy;
+        this.discountPolicy = discountPolicy;
     }
 
+    public int getDiscountedPrice() {
+        return discountPolicy.applyDiscount(price);
+    }
 
     public Long getId() {
         return id;
@@ -51,7 +59,7 @@ class Product {
         return price;
     }
 
-    public DisCountPolicy getDisCountPolicy() {
-        return disCountPolicy;
+    public DiscountPolicy getDiscountPolicy() {
+        return discountPolicy;
     }
 }

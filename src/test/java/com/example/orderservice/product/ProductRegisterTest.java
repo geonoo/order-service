@@ -18,7 +18,7 @@ public class ProductRegisterTest {
     private static AddProductRequest 상품등록_요청() {
         final String name = "상품명";
         final int price = 1000;
-        final DisCountPolicy disCountPolicy = DisCountPolicy.NONE;
+        final DiscountPolicy disCountPolicy = DiscountPolicy.NONE;
         final AddProductRequest request = new AddProductRequest(name, price, disCountPolicy.NONE);
         return request;
     }

@@ -3,7 +3,6 @@ package com.example.orderservice.product;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,7 +31,7 @@ class ProductService {
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
-                product.getDisCountPolicy()
+                product.getDiscountPolicy()
         );
 
         return ResponseEntity.ok(response);

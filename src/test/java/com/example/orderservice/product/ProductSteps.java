@@ -19,7 +19,7 @@ public class ProductSteps {
     public static AddProductRequest 상품등록_요청() {
         final String name = "상품명";
         final int price = 1000;
-        final DisCountPolicy disCountPolicy = DisCountPolicy.NONE;
+        final DiscountPolicy disCountPolicy = DiscountPolicy.NONE;
         final AddProductRequest request = new AddProductRequest(name, price, disCountPolicy.NONE);
         return request;
     }
@@ -36,7 +36,7 @@ public class ProductSteps {
     }
 
     public static UpdateProductRequest 상품수정_요청_생성() {
-        return new UpdateProductRequest("상품 수정", 2000, DisCountPolicy.NONE);
+        return new UpdateProductRequest("상품 수정", 2000, DiscountPolicy.NONE);
     }
 
     public static ExtractableResponse<Response> 상품수정_요청(final Long productId) {
